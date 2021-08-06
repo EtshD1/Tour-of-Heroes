@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HEROES } from '../mock-heroes';
+import { HeroService } from '../hero.service';
 import { Hero } from '../hero';
 
 @Component({
@@ -9,15 +9,17 @@ import { Hero } from '../hero';
 })
 export class HeroesComponent implements OnInit {
 
-	heroes: Hero[] = HEROES;
-
 	selectedHero?: Hero;
+
+	heroes: Hero[] = [];
 
 	onSelect = (hero: Hero) => {
 		this.selectedHero = hero;
 	}
 
-	constructor() { }
+	constructor(private heroService: HeroService) { }
 
-	ngOnInit() { }
+	ngOnInit() {
+		this.heroes = this.heroService.getHeroes();
+	}
 }
